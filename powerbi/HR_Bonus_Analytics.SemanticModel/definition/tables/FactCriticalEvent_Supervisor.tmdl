@@ -1,12 +1,15 @@
-table vw_supervisor_accidente_critico
+table FactCriticalEvent_Supervisor
 	lineageTag: abf94603-d421-4291-a03c-c0e1a48ee320
 
 	column supervisor_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: f6a62c6c-72ac-4445-996c-c1dcd59450ef
 		summarizeBy: none
 		sourceColumn: supervisor_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -19,7 +22,7 @@ table vw_supervisor_accidente_critico
 
 		annotation SummarizationSetBy = Automatic
 
-	partition vw_supervisor_accidente_critico = m
+	partition FactCriticalEvent_Supervisor = m
 		mode: import
 		source =
 				let

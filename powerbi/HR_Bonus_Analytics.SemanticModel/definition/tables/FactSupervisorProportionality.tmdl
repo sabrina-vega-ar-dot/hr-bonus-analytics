@@ -1,12 +1,15 @@
-table vw_supervisor_proporcionalidad
+table FactSupervisorProportionality
 	lineageTag: 3c093678-162d-49f0-84a1-422e6933bb50
 
 	column supervisor_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 9b2a4b71-1738-4749-b727-d8ae8be6e42c
 		summarizeBy: none
 		sourceColumn: supervisor_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -38,7 +41,7 @@ table vw_supervisor_proporcionalidad
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition vw_supervisor_proporcionalidad = m
+	partition FactSupervisorProportionality = m
 		mode: import
 		source =
 				let

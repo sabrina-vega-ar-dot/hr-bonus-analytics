@@ -1,12 +1,15 @@
-table vw_manager_accidente_critico
+table FactCriticalEvent_Manager
 	lineageTag: 35bb64a9-2c42-4a81-bf78-bb32e198b97e
 
 	column manager_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 98bda1bb-cda2-4145-b304-1a226e14be8d
 		summarizeBy: none
 		sourceColumn: manager_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -19,7 +22,7 @@ table vw_manager_accidente_critico
 
 		annotation SummarizationSetBy = Automatic
 
-	partition vw_manager_accidente_critico = m
+	partition FactCriticalEvent_Manager = m
 		mode: import
 		source =
 				let

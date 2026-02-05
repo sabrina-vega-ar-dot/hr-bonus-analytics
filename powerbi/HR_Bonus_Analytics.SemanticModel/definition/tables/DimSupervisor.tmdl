@@ -1,12 +1,18 @@
-table dim_supervisor
+/// Contiene el histórico de supervisores considerados en el budget anual.
+/// La columna Activo se utiliza únicamente para visualizaciones a nivel supervisor;
+/// los análisis agregados (manager, área, país) consideran el histórico completo.
+table DimSupervisor
 	lineageTag: ed0a85df-eeae-4114-9eef-3835a8acf922
 
 	column supervisor_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: d176bc00-d4f6-4e2c-9cc4-81ab72e9b32a
 		summarizeBy: none
 		sourceColumn: supervisor_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -20,10 +26,13 @@ table dim_supervisor
 
 	column manager_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: cbf0f2fb-2c92-41c8-a9da-a656b1d34c12
 		summarizeBy: none
 		sourceColumn: manager_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -68,7 +77,7 @@ table dim_supervisor
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	partition dim_supervisor = m
+	partition DimSupervisor = m
 		mode: import
 		source =
 				let

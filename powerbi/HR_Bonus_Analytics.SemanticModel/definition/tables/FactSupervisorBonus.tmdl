@@ -1,12 +1,18 @@
-table vw_hr_bonus_base
+/// Tabla de hechos principal del modelo, con granularidad Supervisor–Mes–Objetivo.
+/// Almacena valores reales y objetivos utilizados para el cálculo de cumplimiento,
+/// clasificación de performance y métricas de compensación.
+table FactSupervisorBonus
 	lineageTag: 89defca7-fe8d-4f46-bb56-9fe446c29a78
 
 	column fecha_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 2f48f11d-c608-4cc7-a758-f9bf17dcc9b5
 		summarizeBy: sum
 		sourceColumn: fecha_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -38,10 +44,13 @@ table vw_hr_bonus_base
 
 	column supervisor_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 1979dbd9-d134-44ea-9abb-f5b6aca9b35c
 		summarizeBy: none
 		sourceColumn: supervisor_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -64,10 +73,13 @@ table vw_hr_bonus_base
 
 	column manager_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 6444e3fa-d166-4258-b664-74e194daceb7
 		summarizeBy: none
 		sourceColumn: manager_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -97,10 +109,13 @@ table vw_hr_bonus_base
 
 	column objetivo_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 382f74b2-5251-45cb-8702-cfa293c9df92
 		summarizeBy: sum
 		sourceColumn: objetivo_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -160,7 +175,7 @@ table vw_hr_bonus_base
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition vw_hr_bonus_base = m
+	partition FactSupervisorBonus = m
 		mode: import
 		source =
 				let

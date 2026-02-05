@@ -1,12 +1,18 @@
-table dim_fecha
+/// Dimensión calendario oficial del modelo.
+/// Granularidad mensual.
+/// Se utiliza como eje temporal para el análisis de cumplimiento y performance.
+table DimDate
 	lineageTag: 70858742-2ec9-42a1-9075-29904a55c6db
 
 	column fecha_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 31824639-28a4-4288-924e-ee5e94b3173d
 		summarizeBy: sum
 		sourceColumn: fecha_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -60,7 +66,7 @@ table dim_fecha
 
 		annotation SummarizationSetBy = Automatic
 
-	partition dim_fecha = m
+	partition DimDate = m
 		mode: import
 		source =
 				let

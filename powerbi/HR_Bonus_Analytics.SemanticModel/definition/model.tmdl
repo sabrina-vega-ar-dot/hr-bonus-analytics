@@ -8,22 +8,22 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["dim_fecha","dim_manager","dim_pais","dim_supervisor","vw_hr_bonus_base","vw_manager_accidente_critico","vw_supervisor_accidente_critico","vw_supervisor_proporcionalidad","Metrics"]
+annotation PBI_QueryOrder = ["DimDate","DimManager","DimCountry","DimSupervisor","FactSupervisorBonus","FactCriticalEvent_Manager","FactCriticalEvent_Supervisor","FactSupervisorProportionality","Metrics"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table dim_fecha
+ref table DimDate
 ref table DateTableTemplate_51f2b7c1-ff45-49c3-b6fd-4938b5f79646
 ref table LocalDateTable_989f38ee-2765-43a7-8ea5-0bbce7c9e202
-ref table dim_manager
-ref table dim_pais
-ref table dim_supervisor
+ref table DimManager
+ref table DimCountry
+ref table DimSupervisor
 ref table LocalDateTable_16b3b7ae-d8cc-4b64-adfa-df84f7a3f41a
 ref table LocalDateTable_8fe2c17e-9b13-413e-9f9f-9d7840e72530
-ref table vw_hr_bonus_base
-ref table vw_manager_accidente_critico
-ref table vw_supervisor_accidente_critico
-ref table vw_supervisor_proporcionalidad
+ref table FactSupervisorBonus
+ref table FactCriticalEvent_Manager
+ref table FactCriticalEvent_Supervisor
+ref table FactSupervisorProportionality
 ref table Metrics
 
 ref cultureInfo es-AR

@@ -1,12 +1,15 @@
-table dim_pais
+table DimCountry
 	lineageTag: 5b936aa8-8f5c-4920-801d-c6f0fa338778
 
 	column pais_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 39396d4f-c291-42c0-9e32-31a9c1de6e0d
 		summarizeBy: none
 		sourceColumn: pais_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -26,7 +29,7 @@ table dim_pais
 
 		annotation SummarizationSetBy = Automatic
 
-	partition dim_pais = m
+	partition DimCountry = m
 		mode: import
 		source =
 				let

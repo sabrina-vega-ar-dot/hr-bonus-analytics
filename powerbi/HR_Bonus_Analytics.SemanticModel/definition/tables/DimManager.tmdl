@@ -1,12 +1,15 @@
-table dim_manager
+table DimManager
 	lineageTag: 65d43906-f234-4796-9815-ce31ec106326
 
 	column manager_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 58c55700-e78f-42d3-9856-14cb3ce3c78c
 		summarizeBy: none
 		sourceColumn: manager_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -27,7 +30,7 @@ table dim_manager
 
 		annotation SummarizationSetBy = Automatic
 
-	partition dim_manager = m
+	partition DimManager = m
 		mode: import
 		source =
 				let

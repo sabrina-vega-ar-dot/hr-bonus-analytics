@@ -1,10 +1,14 @@
+/// Tabla técnica que centraliza todas las medidas del modelo.
+/// No contiene columnas ni relaciones.
+/// Su objetivo es mejorar la organización, mantenibilidad y legibilidad del modelo.
+/// 
 table Metrics
 	lineageTag: aef927c1-2551-4f04-9f96-a7702e7aa830
 
-	measure '% Cumplimiento Final' =
+	measure 'Flg Accidente Crítico' =
 			
 			VAR TieneAccidente =
-			    MAX(vw_supervisor_accidente_critico[tiene_accidente_critico])
+			    MAX(FactCriticalEvent_Supervisor[tiene_accidente_critico])
 			VAR CumplimientoBase =
 			    [% Cumplimiento Ponderado]
 			RETURN
@@ -15,18 +19,18 @@ table Metrics
 			)
 		lineageTag: d2e27007-be27-4ba8-a159-fb62494b1ad7
 
-	measure '% Cumplimiento Manager Base' =
+	measure 'Cnt Supervisores' =
 			
 			AVERAGEX(
-			    VALUES(vw_hr_bonus_base[supervisor_id]),
+			    VALUES(FactSupervisorBonus[supervisor_id]),
 			    [% Cumplimiento Proporcional]
 			)
 		lineageTag: 09507c72-ae67-4ebb-9f3a-6ab40ce472cc
 
 	measure '% Cumplimiento Manager Final' =
 			
-			VAR Base = [% Cumplimiento Manager Base]
-			VAR Penalizacion = [Penalización Manager]
+			VAR Base = [Cnt Supervisores]
+			VAR Penalizacion = [% Impacto Accidente Crítico]
 			RETURN
 			Base * (1 - Penalizacion)
 		lineageTag: c00960ac-9f9b-4c30-8ff3-24132e6ca54c
@@ -35,11 +39,11 @@ table Metrics
 			
 			VAR CumplimientoPonderado =
 			    SUMX(
-			        vw_hr_bonus_base,
-			        vw_hr_bonus_base[pct_cumplimiento] * vw_hr_bonus_base[peso]
+			        FactSupervisorBonus,
+			        FactSupervisorBonus[pct_cumplimiento] * FactSupervisorBonus[peso]
 			    )
 			VAR PesoTotal =
-			    SUM(vw_hr_bonus_base[peso])
+			    SUM(FactSupervisorBonus[peso])
 			RETURN
 			    DIVIDE(CumplimientoPonderado, PesoTotal)
 		lineageTag: 45a27056-3a6b-450a-8fb1-a1d064e145c6
@@ -49,18 +53,18 @@ table Metrics
 	measure '% Cumplimiento Proporcional' =
 			
 			VAR Factor =
-			    MAX(vw_supervisor_proporcionalidad[factor_proporcional])
+			    MAX(FactSupervisorProportionality[factor_proporcional])
 			VAR CumplimientoFinal =
-			    [% Cumplimiento Final]   -- ya incluye bloqueo por accidente
+			    [Flg Accidente Crítico]   -- ya incluye bloqueo por accidente
 			RETURN
 			CumplimientoFinal * Factor
 		lineageTag: 134d43fa-9d07-4e33-9e90-68069afebc9a
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Clasificación Final' =
+	measure 'KPI Clasificación Cumplimiento' =
 			
-			VAR pct = [% Cumplimiento Final]
+			VAR pct = [Flg Accidente Crítico]
 			RETURN
 			SWITCH(
 			    TRUE(),
@@ -72,7 +76,7 @@ table Metrics
 			)
 		lineageTag: 7cfec0d8-1d11-424d-be12-8b8e0ed3a78c
 
-	measure 'Clasificación Manager' =
+	measure 'KPI Clasificación Manager' =
 			
 			VAR pct = [% Cumplimiento Manager Final]
 			RETURN
@@ -86,10 +90,10 @@ table Metrics
 			)
 		lineageTag: 6f6d8721-59cb-4c99-b656-5deba6a674d3
 
-	measure 'Penalización Manager' =
+	measure '% Impacto Accidente Crítico' =
 			
 			VAR TieneAccidenteEquipo =
-			    MAX(vw_manager_accidente_critico[equipo_con_accidente_critico])
+			    MAX(FactCriticalEvent_Manager[equipo_con_accidente_critico])
 			RETURN
 			IF(
 			    TieneAccidenteEquipo = 1,
