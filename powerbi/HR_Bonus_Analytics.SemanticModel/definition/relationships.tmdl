@@ -1,0 +1,45 @@
+relationship 59c96cea-fbc0-4bf3-93d1-133c9b758d34
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_fecha.fecha
+	toColumn: LocalDateTable_989f38ee-2765-43a7-8ea5-0bbce7c9e202.Date
+
+relationship e2baa02f-4dd6-41ae-98b0-c43791be809c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_supervisor.fecha_alta
+	toColumn: LocalDateTable_16b3b7ae-d8cc-4b64-adfa-df84f7a3f41a.Date
+
+relationship 42878c83-99cd-4c08-944a-f3656d640224
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_supervisor.fecha_baja
+	toColumn: LocalDateTable_8fe2c17e-9b13-413e-9f9f-9d7840e72530.Date
+
+relationship 0031fd9c-f7af-4b22-b511-2c2f256643ce
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dim_manager.pais_id
+	toColumn: dim_pais.pais_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 5d7639bf-57d4-407a-a076-563b1f766ac5
+	fromColumn: dim_supervisor.manager_id
+	toColumn: dim_manager.manager_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship c7b7557f-3c37-8960-9fcb-8265a920bbab
+	fromColumn: vw_hr_bonus_base.supervisor_id
+	toColumn: dim_supervisor.supervisor_id
+
+relationship 326dce41-67c4-740a-6a19-b3949d501e46
+	fromColumn: vw_hr_bonus_base.supervisor_id
+	toColumn: vw_supervisor_accidente_critico.supervisor_id
+
+relationship 92f4838b-94a6-9ce8-23a7-8ca873c54a60
+	fromColumn: vw_hr_bonus_base.manager_id
+	toColumn: vw_manager_accidente_critico.manager_id
+
+relationship bc53c872-f43b-32db-44e6-7bd47147d559
+	fromColumn: vw_hr_bonus_base.supervisor_id
+	toColumn: vw_supervisor_proporcionalidad.supervisor_id
+

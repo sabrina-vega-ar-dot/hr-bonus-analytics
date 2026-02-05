@@ -1,0 +1,81 @@
+table dim_supervisor
+	lineageTag: ed0a85df-eeae-4114-9eef-3835a8acf922
+
+	column supervisor_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d176bc00-d4f6-4e2c-9cc4-81ab72e9b32a
+		summarizeBy: none
+		sourceColumn: supervisor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column supervisor
+		dataType: string
+		lineageTag: 7cf1d414-0d29-49eb-82ec-cdf1ae9146f5
+		summarizeBy: none
+		sourceColumn: supervisor
+
+		annotation SummarizationSetBy = Automatic
+
+	column manager_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cbf0f2fb-2c92-41c8-a9da-a656b1d34c12
+		summarizeBy: none
+		sourceColumn: manager_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column activo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6453d566-49eb-4541-8d16-d49c12c796ed
+		summarizeBy: none
+		sourceColumn: activo
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_alta
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 729e3db1-498d-4102-9fa7-dc2f149dba79
+		summarizeBy: none
+		sourceColumn: fecha_alta
+
+		variation Variación
+			isDefault
+			relationship: e2baa02f-4dd6-41ae-98b0-c43791be809c
+			defaultHierarchy: LocalDateTable_16b3b7ae-d8cc-4b64-adfa-df84f7a3f41a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fecha_baja
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 469d69e4-7492-470f-9f28-526aa026bbaf
+		summarizeBy: none
+		sourceColumn: fecha_baja
+
+		variation Variación
+			isDefault
+			relationship: 42878c83-99cd-4c08-944a-f3656d640224
+			defaultHierarchy: LocalDateTable_8fe2c17e-9b13-413e-9f9f-9d7840e72530.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_supervisor = m
+		mode: import
+		source =
+				let
+				    Origen = Sql.Database("localhost,1433", "PortfolioAnalytics"),
+				    dbo_dim_supervisor = Origen{[Schema="dbo",Item="dim_supervisor"]}[Data]
+				in
+				    dbo_dim_supervisor
+
+	annotation PBI_ResultType = Table
+

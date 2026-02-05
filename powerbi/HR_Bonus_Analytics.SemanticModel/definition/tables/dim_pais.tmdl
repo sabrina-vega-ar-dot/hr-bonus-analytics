@@ -1,0 +1,39 @@
+table dim_pais
+	lineageTag: 5b936aa8-8f5c-4920-801d-c6f0fa338778
+
+	column pais_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 39396d4f-c291-42c0-9e32-31a9c1de6e0d
+		summarizeBy: none
+		sourceColumn: pais_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais
+		dataType: string
+		lineageTag: c13810ef-0d5d-47e8-ad21-95bdaa42acf8
+		summarizeBy: none
+		sourceColumn: pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: b33eacc9-a3b1-4b80-8c6b-5f8fec497c61
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_pais = m
+		mode: import
+		source =
+				let
+				    Origen = Sql.Database("localhost,1433", "PortfolioAnalytics"),
+				    dbo_dim_pais = Origen{[Schema="dbo",Item="dim_pais"]}[Data]
+				in
+				    dbo_dim_pais
+
+	annotation PBI_ResultType = Table
+

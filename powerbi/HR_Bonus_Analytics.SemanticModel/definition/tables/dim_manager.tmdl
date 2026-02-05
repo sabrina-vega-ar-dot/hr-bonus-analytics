@@ -1,0 +1,40 @@
+table dim_manager
+	lineageTag: 65d43906-f234-4796-9815-ce31ec106326
+
+	column manager_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 58c55700-e78f-42d3-9856-14cb3ce3c78c
+		summarizeBy: none
+		sourceColumn: manager_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column manager
+		dataType: string
+		lineageTag: a49ac7f6-c621-4668-977e-a01af0df9a94
+		summarizeBy: none
+		sourceColumn: manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a66c60db-69fa-4b16-bf9e-673abe8b185b
+		summarizeBy: none
+		sourceColumn: pais_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_manager = m
+		mode: import
+		source =
+				let
+				    Origen = Sql.Database("localhost,1433", "PortfolioAnalytics"),
+				    dbo_dim_manager = Origen{[Schema="dbo",Item="dim_manager"]}[Data]
+				in
+				    dbo_dim_manager
+
+	annotation PBI_ResultType = Table
+

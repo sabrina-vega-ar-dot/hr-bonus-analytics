@@ -1,0 +1,73 @@
+table dim_fecha
+	lineageTag: 70858742-2ec9-42a1-9075-29904a55c6db
+
+	column fecha_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 31824639-28a4-4288-924e-ee5e94b3173d
+		summarizeBy: sum
+		sourceColumn: fecha_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5db8b690-145e-40f0-9652-2f1ca652a717
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: 59c96cea-fbc0-4bf3-93d1-133c9b758d34
+			defaultHierarchy: LocalDateTable_989f38ee-2765-43a7-8ea5-0bbce7c9e202.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column anio
+		dataType: int64
+		formatString: 0
+		lineageTag: ac203929-1cec-44f1-b5d1-1b4a75eaf5d1
+		summarizeBy: sum
+		sourceColumn: anio
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: c63d72b2-0cf4-40d1-974f-9c044f2e2f0b
+		summarizeBy: sum
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_mes
+		dataType: string
+		lineageTag: 51ef7026-fd8a-47f7-aa3c-9e8292eff713
+		summarizeBy: none
+		sourceColumn: nombre_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio_mes
+		dataType: string
+		lineageTag: af38704f-f3e5-4316-8bfb-408636e16e82
+		summarizeBy: none
+		sourceColumn: anio_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_fecha = m
+		mode: import
+		source =
+				let
+				    Origen = Sql.Database("localhost,1433", "PortfolioAnalytics"),
+				    dbo_dim_fecha = Origen{[Schema="dbo",Item="dim_fecha"]}[Data]
+				in
+				    dbo_dim_fecha
+
+	annotation PBI_ResultType = Table
+

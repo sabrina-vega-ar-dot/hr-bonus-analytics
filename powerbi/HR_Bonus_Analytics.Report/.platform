@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "HR_Bonus_Analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4fb900f2-81cd-46b7-8d3f-554681e421f5"
+  }
+}

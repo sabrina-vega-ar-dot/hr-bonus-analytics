@@ -1,0 +1,32 @@
+table vw_supervisor_accidente_critico
+	lineageTag: abf94603-d421-4291-a03c-c0e1a48ee320
+
+	column supervisor_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f6a62c6c-72ac-4445-996c-c1dcd59450ef
+		summarizeBy: none
+		sourceColumn: supervisor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiene_accidente_critico
+		dataType: int64
+		formatString: 0
+		lineageTag: 063cc328-dec2-4d65-8c41-570e8e97f945
+		summarizeBy: none
+		sourceColumn: tiene_accidente_critico
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vw_supervisor_accidente_critico = m
+		mode: import
+		source =
+				let
+				    Origen = Sql.Database("localhost,1433", "PortfolioAnalytics"),
+				    dbo_vw_supervisor_accidente_critico = Origen{[Schema="dbo",Item="vw_supervisor_accidente_critico"]}[Data]
+				in
+				    dbo_vw_supervisor_accidente_critico
+
+	annotation PBI_ResultType = Table
+
