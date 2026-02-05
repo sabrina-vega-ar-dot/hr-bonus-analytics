@@ -1,0 +1,16 @@
+# Power BI
+*.pbix
+**/.pbi/
+**/.cache/
+**/.tmp/
+
+# Local model caches
+**/ModelCache/
+**/Cache/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
