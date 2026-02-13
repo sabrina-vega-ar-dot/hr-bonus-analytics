@@ -2025,241 +2025,6 @@ cultureInfo es-AR
 			        }
 			      ]
 			    },
-			    "fact_supervisor_proportionality": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "FactSupervisorProportionality"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "fact supervisor proportionality": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "FactSupervisorProportionality": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        },
-			        {
-			          "proportionality": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "supervisor proportionality": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        }
-			      ]
-			    },
-			    "fact_supervisor_proportionality.supervisor_id": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "FactSupervisorProportionality",
-			          "ConceptualProperty": "supervisor_id"
-			        }
-			      },
-			      "State": "Generated",
-			      "Visibility": {
-			        "Value": "Hidden"
-			      },
-			      "Terms": [
-			        {
-			          "supervisor id": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "supervisor_id": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        },
-			        {
-			          "supervisor identification": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.75
-			          }
-			        },
-			        {
-			          "supervisor identity": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.75
-			          }
-			        },
-			        {
-			          "supervisor identifier": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.75
-			          }
-			        },
-			        {
-			          "supervisor credential": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.727
-			          }
-			        }
-			      ]
-			    },
-			    "fact_supervisor_proportionality.dias_trabajado": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "FactSupervisorProportionality",
-			          "ConceptualProperty": "dias_trabajados"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "dias trabajado": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "dias_trabajados": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        }
-			      ]
-			    },
-			    "fact_supervisor_proportionality.dias_budget": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "FactSupervisorProportionality",
-			          "ConceptualProperty": "dias_budget"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "dias budget": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "dias_budget": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        },
-			        {
-			          "budget": {
-			            "State": "Generated",
-			            "Weight": 0.97
-			          }
-			        },
-			        {
-			          "dias account": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.727
-			          }
-			        },
-			        {
-			          "dias cost": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.727
-			          }
-			        },
-			        {
-			          "dias finance": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.727
-			          }
-			        },
-			        {
-			          "account": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.714
-			          }
-			        },
-			        {
-			          "cost": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.714
-			          }
-			        },
-			        {
-			          "finance": {
-			            "Type": "Noun",
-			            "State": "Suggested",
-			            "Source": {
-			              "Agent": "Thesaurus"
-			            },
-			            "Weight": 0.714
-			          }
-			        }
-			      ]
-			    },
-			    "fact_supervisor_proportionality.factor_proporcional": {
-			      "Definition": {
-			        "Binding": {
-			          "ConceptualEntity": "FactSupervisorProportionality",
-			          "ConceptualProperty": "factor_proporcional"
-			        }
-			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "factor proporcional": {
-			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "factor_proporcional": {
-			            "Type": "Noun",
-			            "State": "Generated",
-			            "Weight": 0.99
-			          }
-			        }
-			      ]
-			    },
 			    "metrics": {
 			      "Definition": {
 			        "Binding": {
@@ -4578,6 +4343,16 @@ cultureInfo es-AR
 			            "State": "Generated",
 			            "Weight": 0.99
 			          }
+			        },
+			        {
+			          "% Cumplimiento esperado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -4632,6 +4407,122 @@ cultureInfo es-AR
 			        {
 			          "test pct": {
 			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "metrics.cumplimiento_mensual_supervisor": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Metrics",
+			          "ConceptualProperty": "% Cumplimiento Mensual Supervisor"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "% cumplimiento mensual supervisor": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "percentage cumplimiento mensual supervisor": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.617
+			          }
+			        },
+			        {
+			          "pct cumplimiento mensual supervisor": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "% cumplimiento mensual manager": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "% cumplimiento mensual administrator": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "% cumplimiento mensual controller": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "% cumplimiento mensual overseer": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "% cumplimiento mensual director": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.514
+			          }
+			        },
+			        {
+			          "% cumplimiento mensual superintendent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "% cumplimiento mensual boss": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
+			          }
+			        },
+			        {
+			          "% cumplimiento mensual superior": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.499
 			          }
 			        }
 			      ]
@@ -5661,52 +5552,6 @@ cultureInfo es-AR
 			        }
 			      ]
 			    },
-			    "fact_supervisor_proportionality_has_dim_supervisor": {
-			      "Binding": {
-			        "ConceptualEntity": "FactSupervisorProportionality"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fact_supervisor_proportionality": {
-			          "Target": {
-			            "Entity": "fact_supervisor_proportionality"
-			          }
-			        },
-			        "dim_supervisor": {
-			          "Target": {
-			            "Entity": "dim_supervisor"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fact_supervisor_proportionality"
-			            },
-			            "Object": {
-			              "Role": "dim_supervisor"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fact_supervisor_proportionalities_have_dim_supervisors"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "dim_supervisor"
-			            },
-			            "Object": {
-			              "Role": "fact_supervisor_proportionality"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "dim_supervisors_have_fact_supervisor_proportionalities"
-			        }
-			      ]
-			    },
 			    "fact_supervisor_bonus_has_dim_objetivo": {
 			      "Binding": {
 			        "ConceptualEntity": "FactSupervisorBonus"
@@ -5934,6 +5779,72 @@ cultureInfo es-AR
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "dim_countries_have_dim_managers"
+			        }
+			      ]
+			    },
+			    "fact_supervisor_bonus_has_metrics_cumplimiento_mensual_supervisor": {
+			      "Binding": {
+			        "ConceptualEntity": "FactSupervisorBonus"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fact_supervisor_bonus": {
+			          "Target": {
+			            "Entity": "fact_supervisor_bonus"
+			          }
+			        },
+			        "metrics.cumplimiento_mensual_supervisor": {
+			          "Target": {
+			            "Entity": "metrics.cumplimiento_mensual_supervisor"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fact_supervisor_bonus"
+			            },
+			            "Object": {
+			              "Role": "metrics.cumplimiento_mensual_supervisor"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fact_supervisor_bonuses_have__cumplimiento_mensual_supervisor"
+			        }
+			      ]
+			    },
+			    "dim_objetivo_has_metrics_cumplimiento_mensual_supervisor": {
+			      "Binding": {
+			        "ConceptualEntity": "DimObjetivo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_objetivo": {
+			          "Target": {
+			            "Entity": "dim_objetivo"
+			          }
+			        },
+			        "metrics.cumplimiento_mensual_supervisor": {
+			          "Target": {
+			            "Entity": "metrics.cumplimiento_mensual_supervisor"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_objetivo"
+			            },
+			            "Object": {
+			              "Role": "metrics.cumplimiento_mensual_supervisor"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_objetivos_have__cumplimiento_mensual_supervisor"
 			        }
 			      ]
 			    },
@@ -7617,171 +7528,6 @@ cultureInfo es-AR
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "dim_objetivos_have_KPI_clasificación_cumplimiento_supervisor"
-			        }
-			      ]
-			    },
-			    "fact_supervisor_bonus_has_metrics_cumplimiento_mensual_supervisor": {
-			      "Binding": {
-			        "ConceptualEntity": "FactSupervisorBonus"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fact_supervisor_bonus": {
-			          "Target": {
-			            "Entity": "fact_supervisor_bonus"
-			          }
-			        },
-			        "metrics.cumplimiento_mensual_supervisor": {
-			          "Target": {
-			            "Entity": "metrics.cumplimiento_mensual_supervisor"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fact_supervisor_bonus"
-			            },
-			            "Object": {
-			              "Role": "metrics.cumplimiento_mensual_supervisor"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fact_supervisor_bonuses_have__cumplimiento_mensual_supervisor"
-			        }
-			      ]
-			    },
-			    "dim_objetivo_has_metrics_cumplimiento_mensual_supervisor": {
-			      "Binding": {
-			        "ConceptualEntity": "DimObjetivo"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "dim_objetivo": {
-			          "Target": {
-			            "Entity": "dim_objetivo"
-			          }
-			        },
-			        "metrics.cumplimiento_mensual_supervisor": {
-			          "Target": {
-			            "Entity": "metrics.cumplimiento_mensual_supervisor"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "dim_objetivo"
-			            },
-			            "Object": {
-			              "Role": "metrics.cumplimiento_mensual_supervisor"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "dim_objetivos_have__cumplimiento_mensual_supervisor"
-			        }
-			      ]
-			    },
-			    "fact_supervisor_proportionality_has_factor_proporcional": {
-			      "Binding": {
-			        "ConceptualEntity": "FactSupervisorProportionality"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fact_supervisor_proportionality": {
-			          "Target": {
-			            "Entity": "fact_supervisor_proportionality"
-			          }
-			        },
-			        "fact_supervisor_proportionality.factor_proporcional": {
-			          "Target": {
-			            "Entity": "fact_supervisor_proportionality.factor_proporcional"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fact_supervisor_proportionality"
-			            },
-			            "Object": {
-			              "Role": "fact_supervisor_proportionality.factor_proporcional"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fact_supervisor_proportionalities_have_factor_proporcionals"
-			        }
-			      ]
-			    },
-			    "fact_supervisor_proportionality_has_dias_budget": {
-			      "Binding": {
-			        "ConceptualEntity": "FactSupervisorProportionality"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fact_supervisor_proportionality": {
-			          "Target": {
-			            "Entity": "fact_supervisor_proportionality"
-			          }
-			        },
-			        "fact_supervisor_proportionality.dias_budget": {
-			          "Target": {
-			            "Entity": "fact_supervisor_proportionality.dias_budget"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fact_supervisor_proportionality"
-			            },
-			            "Object": {
-			              "Role": "fact_supervisor_proportionality.dias_budget"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fact_supervisor_proportionalities_have_dias_budgets"
-			        }
-			      ]
-			    },
-			    "fact_supervisor_proportionality_has_dias_trabajado": {
-			      "Binding": {
-			        "ConceptualEntity": "FactSupervisorProportionality"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fact_supervisor_proportionality": {
-			          "Target": {
-			            "Entity": "fact_supervisor_proportionality"
-			          }
-			        },
-			        "fact_supervisor_proportionality.dias_trabajado": {
-			          "Target": {
-			            "Entity": "fact_supervisor_proportionality.dias_trabajado"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fact_supervisor_proportionality"
-			            },
-			            "Object": {
-			              "Role": "fact_supervisor_proportionality.dias_trabajado"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fact_supervisor_proportionalities_have_dias_trabajados"
 			        }
 			      ]
 			    },

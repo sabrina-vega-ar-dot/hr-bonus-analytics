@@ -282,6 +282,18 @@ table Metrics
 		displayFolder: Agregación managerial
 		lineageTag: 847c68a4-99ca-4601-a3a4-e884287b30a8
 
+	measure '% Cumplimiento esperado' =
+			
+			VAR BudgetSel = [Año Budget Seleccionado]
+			RETURN
+			CALCULATE(
+			    MAX(DimObjetivo[cumplimiento_objetivo]),
+			    DimDate[anio_budget] = BudgetSel
+			) +0
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Medidas base
+		lineageTag: 54894eab-43b7-478c-8881-93a745d5cfd0
+
 	partition Metrics = m
 		mode: import
 		source =

@@ -17,51 +17,6 @@
           "projections": [
             {
               "field": {
-                "Arithmetic": {
-                  "Left": {
-                    "Aggregation": {
-                      "Expression": {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Entity": "FactSupervisorBonus"
-                            }
-                          },
-                          "Property": "valor_objetivo"
-                        }
-                      },
-                      "Function": 1
-                    }
-                  },
-                  "Right": {
-                    "ScopedEval": {
-                      "Expression": {
-                        "Aggregation": {
-                          "Expression": {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Entity": "FactSupervisorBonus"
-                                }
-                              },
-                              "Property": "valor_objetivo"
-                            }
-                          },
-                          "Function": 1
-                        }
-                      },
-                      "Scope": []
-                    }
-                  },
-                  "Operator": 3
-                }
-              },
-              "queryRef": "Sum(FactSupervisorBonus.valor_objetivo)",
-              "nativeQueryRef": "%TG Promedio de valor_objetivo",
-              "displayName": "Valor objetivo"
-            },
-            {
-              "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
@@ -87,6 +42,20 @@
               },
               "queryRef": "Metrics.Tiene Accidente Crítico",
               "nativeQueryRef": "Tiene Accidente Crítico"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Metrics"
+                    }
+                  },
+                  "Property": "% Cumplimiento esperado"
+                }
+              },
+              "queryRef": "Metrics.% Cumplimiento esperado",
+              "nativeQueryRef": "% Cumplimiento esperado"
             }
           ]
         }
@@ -95,46 +64,16 @@
         "sort": [
           {
             "field": {
-              "Arithmetic": {
-                "Left": {
-                  "Aggregation": {
-                    "Expression": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "FactSupervisorBonus"
-                          }
-                        },
-                        "Property": "valor_objetivo"
-                      }
-                    },
-                    "Function": 1
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Metrics"
                   }
                 },
-                "Right": {
-                  "ScopedEval": {
-                    "Expression": {
-                      "Aggregation": {
-                        "Expression": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Entity": "FactSupervisorBonus"
-                              }
-                            },
-                            "Property": "valor_objetivo"
-                          }
-                        },
-                        "Function": 1
-                      }
-                    },
-                    "Scope": []
-                  }
-                },
-                "Operator": 3
+                "Property": "KPI Clasificación Cumplimiento Supervisor"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ],
         "isDefaultSort": true

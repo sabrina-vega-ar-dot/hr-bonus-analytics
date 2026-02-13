@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["DimDate","DimManager","DimCountry","DimSupervisor","FactSupervisorBonus","FactSupervisorProportionality","Metrics","DimObjetivo","DimBudgetSelector"]
+annotation PBI_QueryOrder = ["DimDate","DimManager","DimCountry","DimSupervisor","FactSupervisorBonus","Metrics","DimObjetivo","DimBudgetSelector"]
 
 annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop"]
 
@@ -21,7 +21,6 @@ ref table DimSupervisor
 ref table LocalDateTable_16b3b7ae-d8cc-4b64-adfa-df84f7a3f41a
 ref table LocalDateTable_8fe2c17e-9b13-413e-9f9f-9d7840e72530
 ref table FactSupervisorBonus
-ref table FactSupervisorProportionality
 ref table Metrics
 ref table DimObjetivo
 ref table DimBudgetSelector

@@ -182,6 +182,16 @@
                 }
               ],
               "isToggled": true
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'Juan Perez'"
+                  }
+                }
+              ],
+              "isToggled": true
             }
           ]
         }

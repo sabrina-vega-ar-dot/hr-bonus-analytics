@@ -88,19 +88,6 @@
         },
         {
           "location": {
-            "x": 580.98068703440754,
-            "y": 640.57142857142867
-          },
-          "nodeIndex": "FactSupervisorProportionality",
-          "nodeLineageTag": "3c093678-162d-49f0-84a1-422e6933bb50",
-          "size": {
-            "height": 239.33333333333348,
-            "width": 234
-          },
-          "zIndex": 7
-        },
-        {
-          "location": {
             "x": 1581.4568775105984,
             "y": 0
           },

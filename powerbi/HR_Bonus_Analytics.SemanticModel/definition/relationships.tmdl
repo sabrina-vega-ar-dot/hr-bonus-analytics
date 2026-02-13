@@ -37,7 +37,3 @@ relationship 6dc371be-86aa-c516-eb81-72109d70142f
 	fromColumn: FactSupervisorBonus.objetivo_id
 	toColumn: DimObjetivo.objetivo_id
 
-relationship 564b8adb-fb8a-58ac-8608-aec98fcb9c30
-	fromColumn: FactSupervisorProportionality.supervisor_id
-	toColumn: DimSupervisor.supervisor_id
-
