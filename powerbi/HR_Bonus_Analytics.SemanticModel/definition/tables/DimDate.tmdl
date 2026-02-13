@@ -9,7 +9,7 @@ table DimDate
 		isHidden
 		formatString: 0
 		lineageTag: 31824639-28a4-4288-924e-ee5e94b3173d
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: fecha_id
 
 		changedProperty = IsHidden
@@ -28,6 +28,8 @@ table DimDate
 			relationship: 59c96cea-fbc0-4bf3-93d1-133c9b758d34
 			defaultHierarchy: LocalDateTable_989f38ee-2765-43a7-8ea5-0bbce7c9e202.'Jerarquía de fechas'
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -39,6 +41,8 @@ table DimDate
 		summarizeBy: sum
 		sourceColumn: anio
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column mes
@@ -48,6 +52,8 @@ table DimDate
 		summarizeBy: sum
 		sourceColumn: mes
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column nombre_mes
@@ -55,6 +61,11 @@ table DimDate
 		lineageTag: 51ef7026-fd8a-47f7-aa3c-9e8292eff713
 		summarizeBy: none
 		sourceColumn: nombre_mes
+		sortByColumn: mes_budget_label
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -63,6 +74,51 @@ table DimDate
 		lineageTag: af38704f-f3e5-4316-8bfb-408636e16e82
 		summarizeBy: none
 		sourceColumn: anio_mes
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio_budget
+		dataType: int64
+		formatString: 0
+		lineageTag: ceab6263-27ad-421e-b700-4ea360f2771e
+		summarizeBy: sum
+		sourceColumn: anio_budget
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_budget_num
+		dataType: int64
+		formatString: 0
+		lineageTag: 80b0a635-3732-4664-82c7-1f18d44e6896
+		summarizeBy: sum
+		sourceColumn: mes_budget_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_budget_label
+		dataType: string
+		lineageTag: 952fde71-bcdc-4c4a-b29a-8d4bf25488f5
+		summarizeBy: none
+		sourceColumn: mes_budget_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column ciclo_budget_label
+		dataType: string
+		lineageTag: c9587822-3b08-4fb4-822c-ac14cd2e5ef9
+		summarizeBy: none
+		sourceColumn: ciclo_budget_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column dias_mes_budget
+		dataType: int64
+		formatString: 0
+		lineageTag: eaa44e8f-d2e7-40b1-8c1f-7e9271d1d97d
+		summarizeBy: sum
+		sourceColumn: dias_mes_budget
 
 		annotation SummarizationSetBy = Automatic
 
@@ -76,4 +132,6 @@ table DimDate
 				    dbo_dim_fecha
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
 

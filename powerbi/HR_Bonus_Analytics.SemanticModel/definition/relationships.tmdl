@@ -13,14 +13,6 @@ relationship 42878c83-99cd-4c08-944a-f3656d640224
 	fromColumn: DimSupervisor.fecha_baja
 	toColumn: LocalDateTable_8fe2c17e-9b13-413e-9f9f-9d7840e72530.Date
 
-relationship 0031fd9c-f7af-4b22-b511-2c2f256643ce
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: DimManager.pais_id
-	toColumn: DimCountry.pais_id
-
-	annotation PBI_IsFromSource = FS
-
 relationship 5d7639bf-57d4-407a-a076-563b1f766ac5
 	fromColumn: DimSupervisor.manager_id
 	toColumn: DimManager.manager_id
@@ -31,15 +23,21 @@ relationship c7b7557f-3c37-8960-9fcb-8265a920bbab
 	fromColumn: FactSupervisorBonus.supervisor_id
 	toColumn: DimSupervisor.supervisor_id
 
-relationship 326dce41-67c4-740a-6a19-b3949d501e46
-	fromColumn: FactSupervisorBonus.supervisor_id
-	toColumn: FactCriticalEvent_Supervisor.supervisor_id
+relationship 302aae5b-3f24-cb7d-0100-614a0abb8d72
+	fromColumn: FactSupervisorBonus.fecha_id
+	toColumn: DimDate.fecha_id
 
-relationship 92f4838b-94a6-9ce8-23a7-8ca873c54a60
-	fromColumn: FactSupervisorBonus.manager_id
-	toColumn: FactCriticalEvent_Manager.manager_id
+relationship 9ce7f53e-7ff3-6c83-082d-d7c3b084d6e5
+	fromColumn: DimManager.pais_id
+	toColumn: DimCountry.pais_id
 
-relationship bc53c872-f43b-32db-44e6-7bd47147d559
-	fromColumn: FactSupervisorBonus.supervisor_id
-	toColumn: FactSupervisorProportionality.supervisor_id
+	annotation PBI_IsFromSource = FS
+
+relationship 6dc371be-86aa-c516-eb81-72109d70142f
+	fromColumn: FactSupervisorBonus.objetivo_id
+	toColumn: DimObjetivo.objetivo_id
+
+relationship 564b8adb-fb8a-58ac-8608-aec98fcb9c30
+	fromColumn: FactSupervisorProportionality.supervisor_id
+	toColumn: DimSupervisor.supervisor_id
 

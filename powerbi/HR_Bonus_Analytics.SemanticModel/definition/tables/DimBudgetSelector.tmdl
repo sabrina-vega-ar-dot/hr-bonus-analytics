@@ -1,0 +1,24 @@
+table DimBudgetSelector
+	lineageTag: 15b154dd-1926-4a16-b6b7-e13406feaf62
+
+	column BudgetType
+		dataType: string
+		lineageTag: 0519188a-01c7-41a8-8e52-26e794e97373
+		summarizeBy: none
+		sourceColumn: BudgetType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimBudgetSelector = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WcipNSU8tUXBMLilNzFGK1YGLOKcWFSWm5CvFxgIA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [BudgetType = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"BudgetType", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

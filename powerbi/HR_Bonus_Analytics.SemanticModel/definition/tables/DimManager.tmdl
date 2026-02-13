@@ -19,14 +19,28 @@ table DimManager
 		summarizeBy: none
 		sourceColumn: manager
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column pais_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: a66c60db-69fa-4b16-bf9e-673abe8b185b
 		summarizeBy: none
 		sourceColumn: pais_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column es_operativo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 26506139-79d0-4459-bf63-c4a432da776a
+		summarizeBy: none
+		sourceColumn: es_operativo
 
 		annotation SummarizationSetBy = Automatic
 
@@ -40,4 +54,6 @@ table DimManager
 				    dbo_dim_manager
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
 

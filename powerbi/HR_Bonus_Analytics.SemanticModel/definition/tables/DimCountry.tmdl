@@ -19,6 +19,8 @@ table DimCountry
 		summarizeBy: none
 		sourceColumn: pais
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column region
@@ -26,6 +28,8 @@ table DimCountry
 		lineageTag: b33eacc9-a3b1-4b80-8c6b-5f8fec497c61
 		summarizeBy: none
 		sourceColumn: region
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -39,4 +43,6 @@ table DimCountry
 				    dbo_dim_pais
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
 

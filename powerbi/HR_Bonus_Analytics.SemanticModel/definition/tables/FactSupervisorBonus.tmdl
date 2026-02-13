@@ -9,36 +9,10 @@ table FactSupervisorBonus
 		isHidden
 		formatString: 0
 		lineageTag: 2f48f11d-c608-4cc7-a758-f9bf17dcc9b5
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: fecha_id
 
 		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	column anio
-		dataType: int64
-		formatString: 0
-		lineageTag: 47defccc-ac39-4552-95b4-7d9fbf1d716c
-		summarizeBy: sum
-		sourceColumn: anio
-
-		annotation SummarizationSetBy = Automatic
-
-	column mes
-		dataType: int64
-		formatString: 0
-		lineageTag: 40ac9abc-b56c-4537-b16d-e1e5533906af
-		summarizeBy: sum
-		sourceColumn: mes
-
-		annotation SummarizationSetBy = Automatic
-
-	column anio_mes
-		dataType: string
-		lineageTag: d60cda64-dc96-4b37-853d-51afb17d8f5e
-		summarizeBy: none
-		sourceColumn: anio_mes
 
 		annotation SummarizationSetBy = Automatic
 
@@ -54,112 +28,36 @@ table FactSupervisorBonus
 
 		annotation SummarizationSetBy = Automatic
 
-	column supervisor
-		dataType: string
-		lineageTag: 38be5e72-9308-4c61-90d8-14fcacb8430d
-		summarizeBy: none
-		sourceColumn: supervisor
-
-		annotation SummarizationSetBy = Automatic
-
-	column activo
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 14f88337-3742-4aad-a401-2cedb10810d2
-		summarizeBy: none
-		sourceColumn: activo
-
-		annotation SummarizationSetBy = Automatic
-
-	column manager_id
-		dataType: int64
-		isHidden
-		formatString: 0
-		lineageTag: 6444e3fa-d166-4258-b664-74e194daceb7
-		summarizeBy: none
-		sourceColumn: manager_id
-
-		changedProperty = IsHidden
-
-		annotation SummarizationSetBy = Automatic
-
-	column manager
-		dataType: string
-		lineageTag: 2e21ae16-39bc-4ef3-bfa7-7de8da494a66
-		summarizeBy: none
-		sourceColumn: manager
-
-		annotation SummarizationSetBy = Automatic
-
-	column pais
-		dataType: string
-		lineageTag: 340296f8-2c72-4a9c-b745-87bc1039a211
-		summarizeBy: none
-		sourceColumn: pais
-
-		annotation SummarizationSetBy = Automatic
-
-	column region
-		dataType: string
-		lineageTag: 399ec401-c058-4f5c-917a-2c0cb7cf9ede
-		summarizeBy: none
-		sourceColumn: region
-
-		annotation SummarizationSetBy = Automatic
-
 	column objetivo_id
 		dataType: int64
 		isHidden
 		formatString: 0
 		lineageTag: 382f74b2-5251-45cb-8702-cfa293c9df92
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: objetivo_id
 
 		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
-	column objetivo
-		dataType: string
-		lineageTag: f86c6bfd-054f-48c3-bedb-684390a2852a
-		summarizeBy: none
-		sourceColumn: objetivo
-
-		annotation SummarizationSetBy = Automatic
-
-	column area
-		dataType: string
-		lineageTag: 7d0f65b0-6e38-4930-907f-4b5fe42602d0
-		summarizeBy: none
-		sourceColumn: area
-
-		annotation SummarizationSetBy = Automatic
-
-	column peso
-		dataType: double
-		lineageTag: 0e139683-74e7-4f2c-98fd-1885d7d6643a
-		summarizeBy: sum
-		sourceColumn: peso
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column valor_real
 		dataType: double
+		formatString: 0.00
 		lineageTag: fdd2d69e-91ed-48ef-99d7-9f1cc805c085
 		summarizeBy: sum
 		sourceColumn: valor_real
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = Automatic
 
 	column valor_objetivo
 		dataType: double
 		lineageTag: d499803b-0edd-4257-91e9-c00727e81159
 		summarizeBy: sum
 		sourceColumn: valor_objetivo
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -171,9 +69,20 @@ table FactSupervisorBonus
 		summarizeBy: sum
 		sourceColumn: pct_cumplimiento
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tiene_accidente_critico
+		dataType: int64
+		formatString: 0
+		lineageTag: 6f759919-4e4a-4711-a5dc-5f3ac89ae953
+		summarizeBy: sum
+		sourceColumn: tiene_accidente_critico
+
+		annotation SummarizationSetBy = Automatic
 
 	partition FactSupervisorBonus = m
 		mode: import
@@ -185,4 +94,6 @@ table FactSupervisorBonus
 				    dbo_vw_hr_bonus_base
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
 

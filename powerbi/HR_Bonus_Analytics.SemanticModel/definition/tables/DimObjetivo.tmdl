@@ -1,0 +1,88 @@
+table DimObjetivo
+	lineageTag: fc8f2c0d-5300-46ad-89f5-07f6bcd9707a
+
+	column objetivo_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: acc6e825-1fec-4080-b860-a2eef9a673cd
+		summarizeBy: none
+		sourceColumn: objetivo_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column objetivo
+		dataType: string
+		lineageTag: db00f9d6-acca-4f2d-b6da-c2eb2b0b7d5d
+		summarizeBy: none
+		sourceColumn: objetivo
+
+		annotation SummarizationSetBy = Automatic
+
+	column area_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7f3859b0-b2e8-4200-99a7-acefd8d10569
+		summarizeBy: none
+		sourceColumn: area_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column peso
+		dataType: double
+		lineageTag: a125f792-7b36-4208-945b-692463da90de
+		summarizeBy: none
+		sourceColumn: peso
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cumplimiento_objetivo
+		dataType: double
+		lineageTag: bb6c9036-a0dd-424e-808c-7cbbd5220251
+		summarizeBy: none
+		sourceColumn: cumplimiento_objetivo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column meta_objetivo
+		dataType: double
+		lineageTag: 378d44a9-7406-441a-a10b-5f6dc6a11663
+		summarizeBy: none
+		sourceColumn: meta_objetivo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cumplimiento
+		dataType: double
+		lineageTag: ee5c9626-d219-413a-a8c6-d06ebbd11ee8
+		summarizeBy: none
+		sourceColumn: cumplimiento
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DimObjetivo = m
+		mode: import
+		source =
+				let
+				    Origen = Sql.Database("localhost,1433", "PortfolioAnalytics"),
+				    dbo_dim_objetivo = Origen{[Schema="dbo",Item="dim_objetivo"]}[Data]
+				in
+				    dbo_dim_objetivo
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

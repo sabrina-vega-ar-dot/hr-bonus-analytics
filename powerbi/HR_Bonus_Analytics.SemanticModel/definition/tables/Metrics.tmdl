@@ -5,104 +5,282 @@
 table Metrics
 	lineageTag: aef927c1-2551-4f04-9f96-a7702e7aa830
 
-	measure 'Flg Accidente Crítico' =
+	/// Clasificación cualitativa del cumplimiento del supervisor según rangos definidos por negocio.
+	measure 'KPI Clasificación Cumplimiento Supervisor' =
 			
-			VAR TieneAccidente =
-			    MAX(FactCriticalEvent_Supervisor[tiene_accidente_critico])
-			VAR CumplimientoBase =
-			    [% Cumplimiento Ponderado]
+			VAR pct = [% Cumplimiento Supervisor]
 			RETURN
-			IF(
-			    TieneAccidente = 1,
-			    0,
-			    CumplimientoBase
+			SWITCH(
+			    TRUE(),
+			    pct < 0.80, "No Cumple",
+			    pct >= 0.80 && pct < 0.95, "Cumplimiento Parcial",
+			    pct >= 0.95 && pct <= 1.04, "Cumple",
+			    pct > 1.04, "Supera Cumplimiento",
+			    BLANK()
 			)
-		lineageTag: d2e27007-be27-4ba8-a159-fb62494b1ad7
+		displayFolder: Clasificaciones
+		lineageTag: 7cfec0d8-1d11-424d-be12-8b8e0ed3a78c
+
+		changedProperty = IsHidden
+
+	/// Clasificación cualitativa del cumplimiento del manager según rangos definidos por negocio.
+	measure 'KPI Clasificación Cumplimiento Manager' =
+			
+			VAR pct = [% Cumplimiento Manager]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    pct < 80, "No Cumple",
+			    pct >= 80 && pct < 95, "Cumplimiento Parcial",
+			    pct >= 95 && pct <= 104, "Cumple",
+			    pct > 104, "Supera Cumplimiento",
+			    BLANK()
+			)
+		displayFolder: Clasificaciones
+		lineageTag: 6f6d8721-59cb-4c99-b656-5deba6a674d3
+
+		changedProperty = IsHidden
 
 	measure 'Cnt Supervisores' =
 			
-			AVERAGEX(
-			    VALUES(FactSupervisorBonus[supervisor_id]),
-			    [% Cumplimiento Proporcional]
-			)
-		lineageTag: 09507c72-ae67-4ebb-9f3a-6ab40ce472cc
+			COUNTROWS(DimSupervisor)
+		formatString: 0
+		displayFolder: Medidas base
+		lineageTag: 2b45a154-ad94-499d-8d90-d6ead2b65bdf
 
-	measure '% Cumplimiento Manager Final' =
+	measure '% de supervisores activos' =
 			
-			VAR Base = [Cnt Supervisores]
-			VAR Penalizacion = [% Impacto Accidente Crítico]
+			CALCULATE([Cnt Supervisores],DimSupervisor[activo]=TRUE())/[Cnt Supervisores]
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Agregación managerial
+		lineageTag: 672c9327-0324-4ec4-9012-02019977d6dc
+
+	measure 'Tiene Accidente Equipo' =
+			
+			VAR BudgetSel = [Año Budget Seleccionado]
 			RETURN
-			Base * (1 - Penalizacion)
-		lineageTag: c00960ac-9f9b-4c30-8ff3-24132e6ca54c
+			CALCULATE(
+			    MAX(FactSupervisorBonus[tiene_accidente_critico]),
+			    DimDate[anio_budget] = BudgetSel
+			) + 0
+		formatString: 0
+		displayFolder: Medidas base
+		lineageTag: 05fa08bb-f834-466c-8192-72b3e31a7b61
 
-	measure '% Cumplimiento Ponderado' =
+	measure 'Año Budget Seleccionado' = ```
 			
-			VAR CumplimientoPonderado =
-			    SUMX(
-			        FactSupervisorBonus,
-			        FactSupervisorBonus[pct_cumplimiento] * FactSupervisorBonus[peso]
+			VAR MaxBudget =
+			    MAX ( DimDate[anio] )
+			VAR Seleccion =
+			    SELECTEDVALUE ( DimBudgetSelector[BudgetType], "Budget Actual" )
+			RETURN
+			    IF (
+			        Seleccion = "Budget Actual",
+			        MaxBudget,
+			        MaxBudget - 1
 			    )
-			VAR PesoTotal =
-			    SUM(FactSupervisorBonus[peso])
-			RETURN
-			    DIVIDE(CumplimientoPonderado, PesoTotal)
-		lineageTag: 45a27056-3a6b-450a-8fb1-a1d064e145c6
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	measure '% Cumplimiento Proporcional' =
 			
-			VAR Factor =
-			    MAX(FactSupervisorProportionality[factor_proporcional])
-			VAR CumplimientoFinal =
-			    [Flg Accidente Crítico]   -- ya incluye bloqueo por accidente
-			RETURN
-			CumplimientoFinal * Factor
-		lineageTag: 134d43fa-9d07-4e33-9e90-68069afebc9a
+			```
+		formatString: 0
+		displayFolder: Reglas de negocio
+		lineageTag: 32e24f0f-c7fe-4a37-9cc4-1186ef9a2e07
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	measure 'KPI Clasificación Cumplimiento' =
+	measure 'Filtro Budget Activo' =
 			
-			VAR pct = [Flg Accidente Crítico]
+			VAR BudgetSel = [Año Budget Seleccionado]
 			RETURN
-			SWITCH(
-			    TRUE(),
-			    pct < 80, "No Cumple",
-			    pct >= 80 && pct < 95, "Cumplimiento Parcial",
-			    pct >= 95 && pct <= 104, "Cumple",
-			    pct > 104, "Supera Cumplimiento",
-			    BLANK()
-			)
-		lineageTag: 7cfec0d8-1d11-424d-be12-8b8e0ed3a78c
-
-	measure 'KPI Clasificación Manager' =
-			
-			VAR pct = [% Cumplimiento Manager Final]
-			RETURN
-			SWITCH(
-			    TRUE(),
-			    pct < 80, "No Cumple",
-			    pct >= 80 && pct < 95, "Cumplimiento Parcial",
-			    pct >= 95 && pct <= 104, "Cumple",
-			    pct > 104, "Supera Cumplimiento",
-			    BLANK()
-			)
-		lineageTag: 6f6d8721-59cb-4c99-b656-5deba6a674d3
-
-	measure '% Impacto Accidente Crítico' =
-			
-			VAR TieneAccidenteEquipo =
-			    MAX(FactCriticalEvent_Manager[equipo_con_accidente_critico])
-			RETURN
-			IF(
-			    TieneAccidenteEquipo = 1,
-			    0.25,
+			IF (
+			    MAX ( DimDate[anio_budget] ) = BudgetSel,
+			    1,
 			    0
 			)
-		lineageTag: 8eb78199-ecc2-4fdb-8810-826966b7e1ff
+		formatString: 0
+		displayFolder: Reglas de negocio
+		lineageTag: 996cb7d7-c64b-4d0b-b459-81e0ef8abc22
+
+	measure 'Texto Budget Summary' =
+			
+			VAR Anio = [Año Budget Seleccionado]
+			RETURN
+			"Año Budget: "
+			    & Anio
+			    & " Ciclo Jul-"
+			    & ( Anio - 1 )
+			    & " a Jun-"
+			    & Anio
+		displayFolder: Reglas de negocio
+		lineageTag: c4c2a04e-5c11-42ef-b520-7387aa7bda68
+
+	measure 'Manager Tiene Datos' =
+			
+			VAR Cumplimiento =
+			    [% Cumplimiento Manager]
+			RETURN
+			IF (
+			    NOT ISBLANK ( Cumplimiento ),
+			    1,
+			    0
+			)
+		formatString: 0
+		displayFolder: Reglas de negocio
+		lineageTag: 2fc82a76-1d0d-4900-bfa9-3bb1a5119877
+
+	measure 'Tiene Accidente Crítico' =
+			
+			VAR BudgetSel = [Año Budget Seleccionado]
+			RETURN
+			CALCULATE(
+			    MAX(FactSupervisorBonus[tiene_accidente_critico]),
+			    DimDate[anio_budget] = BudgetSel
+			) +0
+		formatString: 0
+		displayFolder: Medidas base
+		lineageTag: ccb492c5-dec3-408b-b27d-14eda4287a98
+
+	measure 'Supervisor Activo Mes' =
+			
+			VAR FechaInicioMes = MIN ( DimDate[fecha] )
+			VAR FechaFinMes    = MAX ( DimDate[fecha] )
+			
+			RETURN
+			IF (
+			    MAX ( DimSupervisor[fecha_alta] ) <= FechaFinMes
+			        && (
+			            ISBLANK ( MAX ( DimSupervisor[fecha_baja] ) )
+			            || MAX ( DimSupervisor[fecha_baja] ) >= FechaInicioMes
+			        ),
+			    1,
+			    0
+			)
+		formatString: 0
+		displayFolder: Medidas base
+		lineageTag: e88c0a85-edc7-4997-9a76-f986ad780165
+
+	measure 'Mes Cerrado' = ```
+			
+			IF (
+			    MAX ( DimDate[fecha] ) < TODAY (),
+			    1,
+			    0
+			)
+			
+			```
+		formatString: 0
+		displayFolder: Medidas base
+		lineageTag: 5b8c809c-d56b-4046-a496-907720c71b73
+
+	measure 'Valor real' = SUM(FactSupervisorBonus[valor_real])
+		displayFolder: Medidas base
+		lineageTag: 89408091-0307-4143-bf5a-73e3e7170d56
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Cumplimiento Objetivo' =
+			
+			DIVIDE(
+			    SUM(FactSupervisorBonus[valor_real])/100,
+			    SUM(FactSupervisorBonus[valor_objetivo])
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Agregación managerial
+		lineageTag: 5790d36e-ef1a-4128-aeee-347091d7a1ce
+
+	measure '% Cumplimiento Supervisor' =
+			
+			SUMX(
+			    DimObjetivo,
+			    CALCULATE(
+			        AVERAGE(FactSupervisorBonus[pct_cumplimiento])
+			    ) * DimObjetivo[peso]
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Agregación managerial
+		lineageTag: 1009b378-d0d1-4fa2-995c-7fe877ae09ed
+
+	measure '% Bono Supervisor' =
+			
+			VAR Cumplimiento = [% Cumplimiento Supervisor]
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    Cumplimiento >= 0.95, 1,
+			    Cumplimiento >= 0.60, 0.5,
+			    0
+			)
+		displayFolder: Agregación managerial
+		lineageTag: 3d2539d3-5eb1-4c88-b48d-6754854fbfe1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'KPI Clasificación Bono Supervisor' =
+			
+			VAR Bono = [% Bono Supervisor]
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    Bono = 1, "Bono 100%",
+			    Bono = 0.5, "Bono 50%",
+			    "Sin Bono"
+			)
+		displayFolder: Clasificaciones
+		lineageTag: f2348070-dba6-4c27-8041-fd4883de82a3
+
+	measure '% Cumplimiento Manager' =
+			
+			AVERAGEX(
+			    VALUES(DimSupervisor[supervisor_id]),
+			    [% Cumplimiento Supervisor]
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Agregación managerial
+		lineageTag: da0155a1-c2ea-4477-ab01-aa15d6399cec
+
+	measure 'KPI Clasificación Supervisor' =
+			
+			VAR Bono = [% Bono Supervisor]
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    Bono = 1, "Bono 100%",
+			    Bono = 0.5, "Bono 50%",
+			    "Sin Bono"
+			)
+		displayFolder: Clasificaciones
+		lineageTag: 733fbd2b-4ad9-4d19-9858-02f1f8d88273
+
+	measure '% Bono Manager' =
+			
+			AVERAGEX(
+			    VALUES(DimSupervisor[supervisor_id]),
+			    [% Bono Supervisor]
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Agregación managerial
+		lineageTag: d0d9402d-ee47-47bf-9393-f65d2dc9e402
+
+	measure 'Test Pct' =
+			
+			AVERAGE(FactSupervisorBonus[pct_cumplimiento])
+		displayFolder: Reglas de negocio
+		lineageTag: 56814f76-c86d-4154-bddf-5031864e3467
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Cumplimiento Mensual Supervisor' =
+			
+			SUMX(
+			    DimObjetivo,
+			    CALCULATE(
+			        AVERAGE(FactSupervisorBonus[pct_cumplimiento])
+			    )
+			    * DimObjetivo[peso]
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Agregación managerial
+		lineageTag: 847c68a4-99ca-4601-a3a4-e884287b30a8
 
 	partition Metrics = m
 		mode: import

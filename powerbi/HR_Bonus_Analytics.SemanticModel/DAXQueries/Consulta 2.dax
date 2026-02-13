@@ -1,0 +1,267 @@
+DEFINE
+    MEASURE 'Metrics'[% Cumplimiento Manager Base] = VAR BudgetSel = [Año Budget Seleccionado]
+
+RETURN
+CALCULATE(
+    DIVIDE(
+        SUMX(
+            FactSupervisorBonus,
+            FactSupervisorBonus[pct_cumplimiento] *
+            RELATED(DimObjetivo[peso])
+        ),
+        SUMX(DimObjetivo, DimObjetivo[peso])
+)
+  ,
+    DimDate[anio_budget] = BudgetSel
+)
+    MEASURE 'Metrics'[% Cumplimiento Manager Final] = VAR Base = [% Cumplimiento Manager Base]
+VAR Penalizacion = [% Impacto Accidente Crítico]
+
+RETURN
+IF(
+    ISBLANK(Base),
+    BLANK(),
+    Base * (1 - Penalizacion)
+)
+    MEASURE 'Metrics'[% Cumplimiento Mensual Supervisor] = VAR CumplimientoPonderado =
+    SUMX(
+        FactSupervisorBonus,
+        FactSupervisorBonus[pct_cumplimiento] * RELATED(DimObjetivo[peso])
+    )
+VAR PesoTotal =
+    SUMX(DimObjetivo, DimObjetivo[peso])
+RETURN
+    DIVIDE(CumplimientoPonderado, PesoTotal)
+    MEASURE 'Metrics'[% Cumplimiento Supervisor Periodo] = VAR BudgetSel = [Año Budget Seleccionado]
+
+VAR MesesValidos =
+    FILTER (
+        VALUES ( DimDate[anio_mes] ),
+        CALCULATE ( [Mes Cerrado], DimDate[anio_budget] = BudgetSel ) = 1
+    )
+
+RETURN
+AVERAGEX (
+    MesesValidos,
+    CALCULATE(
+        [% Cumplimiento Mensual Supervisor],
+        DimDate[anio_budget] = BudgetSel
+    )
+)+0
+    MEASURE 'Metrics'[KPI Clasificación Cumplimiento Supervisor] = VAR pct = [% Cumplimiento Supervisor]
+RETURN
+SWITCH(
+    TRUE(),
+    pct < 0.80, "No Cumple",
+    pct >= 0.80 && pct < 0.95, "Cumplimiento Parcial",
+    pct >= 0.95 && pct <= 1.04, "Cumple",
+    pct > 1.04, "Supera Cumplimiento",
+    BLANK()
+)
+    MEASURE 'Metrics'[KPI Clasificación Cumplimiento Manager] = VAR pct = [% Cumplimiento Manager Final]
+RETURN
+SWITCH(
+    TRUE(),
+    pct < 80, "No Cumple",
+    pct >= 80 && pct < 95, "Cumplimiento Parcial",
+    pct >= 95 && pct <= 104, "Cumple",
+    pct > 104, "Supera Cumplimiento",
+    BLANK()
+)
+    MEASURE 'Metrics'[% Impacto Accidente Crítico] = IF ( [Tiene Accidente Equipo] = 1, 0.25, 0 )
+    MEASURE 'Metrics'[Cnt Supervisores] = COUNTROWS(DimSupervisor)
+    MEASURE 'Metrics'[% de supervisores activos] = CALCULATE([Cnt Supervisores],DimSupervisor[activo]=TRUE())/[Cnt Supervisores]
+    MEASURE 'Metrics'[Tiene Accidente Equipo] = VAR BudgetSel = [Año Budget Seleccionado]
+RETURN
+CALCULATE(
+    MAX(FactSupervisorBonus[tiene_accidente_critico]),
+    DimDate[anio_budget] = BudgetSel
+) + 0
+    MEASURE 'Metrics'[Año Budget Seleccionado] = VAR MaxBudget =
+    MAX ( DimDate[anio] )
+VAR Seleccion =
+    SELECTEDVALUE ( DimBudgetSelector[BudgetType], "Budget Actual" )
+RETURN
+    IF (
+        Seleccion = "Budget Actual",
+        MaxBudget,
+        MaxBudget - 1
+    )
+    MEASURE 'Metrics'[Filtro Budget Activo] = VAR BudgetSel = [Año Budget Seleccionado]
+RETURN
+IF (
+    MAX ( DimDate[anio_budget] ) = BudgetSel,
+    1,
+    0
+)
+    MEASURE 'Metrics'[Texto Budget Summary] = VAR Anio = [Año Budget Seleccionado]
+RETURN
+"Año Budget: "
+    & Anio
+    & " Ciclo Jul-"
+    & ( Anio - 1 )
+    & " a Jun-"
+    & Anio
+    MEASURE 'Metrics'[Manager Tiene Datos] = VAR Cumplimiento =
+    [% Cumplimiento Manager Final]
+RETURN
+IF (
+    NOT ISBLANK ( Cumplimiento ),
+    1,
+    0
+)
+    MEASURE 'Metrics'[Tiene Accidente Crítico] = VAR BudgetSel = [Año Budget Seleccionado]
+RETURN
+CALCULATE(
+    MAX(FactSupervisorBonus[tiene_accidente_critico]),
+    DimDate[anio_budget] = BudgetSel
+) +0
+    MEASURE 'Metrics'[Supervisor Activo Mes] = VAR FechaInicioMes = MIN ( DimDate[fecha] )
+VAR FechaFinMes    = MAX ( DimDate[fecha] )
+
+RETURN
+IF (
+    MAX ( DimSupervisor[fecha_alta] ) <= FechaFinMes
+        && (
+            ISBLANK ( MAX ( DimSupervisor[fecha_baja] ) )
+            || MAX ( DimSupervisor[fecha_baja] ) >= FechaInicioMes
+        ),
+    1,
+    0
+)
+    MEASURE 'Metrics'[Mes Cerrado] = IF (
+    MAX ( DimDate[fecha] ) < TODAY (),
+    1,
+    0
+)
+    MEASURE 'Metrics'[% Cumplimiento Supervisor Base] = DIVIDE(
+    SUMX(
+        FactSupervisorBonus,
+        [% Cumplimiento Objetivo] *
+        RELATED(DimObjetivo[peso])
+    ),
+    SUM(DimObjetivo[peso])
+)
+    MEASURE 'Metrics'[% Cumplimiento Ponderado Objetivos] = DIVIDE(
+    SUMX(
+        FactSupervisorBonus,
+        FactSupervisorBonus[pct_cumplimiento] * RELATED(DimObjetivo[peso])
+    ),
+    SUMX(DimObjetivo, DimObjetivo[peso])
+)
+    MEASURE 'Metrics'[% Cumplimiento Proporcional Tiempo] = AVERAGEX(
+    FILTER(
+        VALUES(DimDate[anio_mes]),
+        [Mes Cerrado] = 1
+    ),
+    [% Cumplimiento Ponderado Objetivos]
+)
+    MEASURE 'Metrics'[% Cumplimiento General] = VAR BudgetSel = [Año Budget Seleccionado]
+
+RETURN
+CALCULATE(
+    DIVIDE(
+        SUMX(
+            FactSupervisorBonus,
+            FactSupervisorBonus[pct_cumplimiento] *
+            RELATED(DimObjetivo[peso])
+        ),
+        SUMX(DimObjetivo, DimObjetivo[peso])
+    ),
+    DimDate[anio_budget] = BudgetSel
+)
+    MEASURE 'Metrics'[Valor real] = SUM(FactSupervisorBonus[valor_real])
+    MEASURE 'Metrics'[% Cumplimiento Objetivo] = DIVIDE(
+    SUM(FactSupervisorBonus[valor_real]),
+    SUM(FactSupervisorBonus[valor_objetivo])
+)
+    MEASURE 'Metrics'[% Cumplimiento Supervisor] = VAR Cumplimiento =
+    DIVIDE(
+        SUMX(
+            FactSupervisorBonus,
+            FactSupervisorBonus[pct_cumplimiento] *
+            RELATED(DimObjetivo[peso])
+        ),
+        SUM(DimObjetivo[peso])
+    )
+
+-- Si hay incidente, el objetivo ya vale 0
+RETURN Cumplimiento
+    MEASURE 'Metrics'[% Bono Supervisor] = VAR Cumplimiento = [% Cumplimiento Supervisor]
+
+RETURN
+SWITCH(
+    TRUE(),
+    Cumplimiento >= 0.95, 1,
+    Cumplimiento >= 0.60, 0.5,
+    0
+)
+    MEASURE 'Metrics'[KPI Clasificación Bono Supervisor] = VAR Bono = [% Bono Supervisor]
+
+RETURN
+SWITCH(
+    TRUE(),
+    Bono = 1, "Bono 100%",
+    Bono = 0.5, "Bono 50%",
+    "Sin Bono"
+)
+    MEASURE 'Metrics'[% Bono Manager (Manager)] = AVERAGEX(
+    VALUES(DimSupervisor[supervisor_id]),
+    [% Bono Supervisor]
+)
+    MEASURE 'Metrics'[% Bono Manager] = AVERAGEX(
+    VALUES(DimSupervisor[supervisor_id]),
+    [% Bono Supervisor]
+)
+    MEASURE 'Metrics'[% Cumplimiento Manager] = AVERAGEX(
+    VALUES(DimSupervisor[supervisor_id]),
+    [% Cumplimiento Supervisor]
+)
+    MEASURE 'Metrics'[% Cumplimiento Manager (Summary)] = AVERAGEX(
+    VALUES(DimSupervisor[supervisor_id]),
+    [% Cumplimiento Supervisor]
+)
+    MEASURE 'Metrics'[KPI Clasificación Supervisor] = VAR Bono = [% Bono Supervisor]
+
+RETURN
+SWITCH(
+    TRUE(),
+    Bono = 1, "Bono 100%",
+    Bono = 0.5, "Bono 50%",
+    "Sin Bono"
+)
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "% Cumplimiento Manager Base", [% Cumplimiento Manager Base],
+        "% Cumplimiento Manager Final", [% Cumplimiento Manager Final],
+        "% Cumplimiento Mensual Supervisor", [% Cumplimiento Mensual Supervisor],
+        "% Cumplimiento Supervisor Periodo", [% Cumplimiento Supervisor Periodo],
+        "KPI Clasificación Cumplimiento Supervisor", [KPI Clasificación Cumplimiento Supervisor],
+        "KPI Clasificación Cumplimiento Manager", [KPI Clasificación Cumplimiento Manager],
+        "% Impacto Accidente Crítico", [% Impacto Accidente Crítico],
+        "Cnt Supervisores", [Cnt Supervisores],
+        "% de supervisores activos", [% de supervisores activos],
+        "Tiene Accidente Equipo", [Tiene Accidente Equipo],
+        "Año Budget Seleccionado", [Año Budget Seleccionado],
+        "Filtro Budget Activo", [Filtro Budget Activo],
+        "Texto Budget Summary", [Texto Budget Summary],
+        "Manager Tiene Datos", [Manager Tiene Datos],
+        "Tiene Accidente Crítico", [Tiene Accidente Crítico],
+        "Supervisor Activo Mes", [Supervisor Activo Mes],
+        "Mes Cerrado", [Mes Cerrado],
+        "% Cumplimiento Supervisor Base", [% Cumplimiento Supervisor Base],
+        "% Cumplimiento Ponderado Objetivos", [% Cumplimiento Ponderado Objetivos],
+        "% Cumplimiento Proporcional Tiempo", [% Cumplimiento Proporcional Tiempo],
+        "% Cumplimiento General", [% Cumplimiento General],
+        "Valor real", [Valor real],
+        "% Cumplimiento Objetivo", [% Cumplimiento Objetivo],
+        "% Cumplimiento Supervisor", [% Cumplimiento Supervisor],
+        "% Bono Supervisor", [% Bono Supervisor],
+        "KPI Clasificación Bono Supervisor", [KPI Clasificación Bono Supervisor],
+        "% Bono Manager (Manager)", [% Bono Manager (Manager)],
+        "% Bono Manager", [% Bono Manager],
+        "% Cumplimiento Manager", [% Cumplimiento Manager],
+        "% Cumplimiento Manager (Summary)", [% Cumplimiento Manager (Summary)],
+        "KPI Clasificación Supervisor", [KPI Clasificación Supervisor]
+    )

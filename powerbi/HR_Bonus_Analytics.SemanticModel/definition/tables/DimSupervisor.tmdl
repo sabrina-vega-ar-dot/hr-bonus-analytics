@@ -22,6 +22,8 @@ table DimSupervisor
 		summarizeBy: none
 		sourceColumn: supervisor
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column manager_id
@@ -43,6 +45,8 @@ table DimSupervisor
 		summarizeBy: none
 		sourceColumn: activo
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column fecha_alta
@@ -56,6 +60,8 @@ table DimSupervisor
 			isDefault
 			relationship: e2baa02f-4dd6-41ae-98b0-c43791be809c
 			defaultHierarchy: LocalDateTable_16b3b7ae-d8cc-4b64-adfa-df84f7a3f41a.'Jerarquía de fechas'
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -73,6 +79,8 @@ table DimSupervisor
 			relationship: 42878c83-99cd-4c08-944a-f3656d640224
 			defaultHierarchy: LocalDateTable_8fe2c17e-9b13-413e-9f9f-9d7840e72530.'Jerarquía de fechas'
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -87,4 +95,6 @@ table DimSupervisor
 				    dbo_dim_supervisor
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
 
